@@ -1,0 +1,2 @@
+include ':app', ':data', ':core'
+rootProject.name='BreakingNews'
