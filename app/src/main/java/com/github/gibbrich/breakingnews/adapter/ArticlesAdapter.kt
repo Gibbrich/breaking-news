@@ -144,31 +144,31 @@ private class ArticleViewHolder(
         article: Article,
         requestManager: RequestManager
     ) {
-        val loadListener = object : RequestListener<Drawable> {
-            override fun onLoadFailed(
-                e: GlideException?,
-                model: Any,
-                target: Target<Drawable>,
-                isFirstResource: Boolean
-            ): Boolean {
-                viewHolderListener.onLoadCompleted(model.toString())
-                return false
-            }
-
-            override fun onResourceReady(
-                resource: Drawable,
-                model: Any,
-                target: Target<Drawable>,
-                dataSource: DataSource,
-                isFirstResource: Boolean
-            ): Boolean {
-                viewHolderListener.onLoadCompleted(model.toString())
-                return false
-            }
-        }
-
         article.urlToImage
             ?.let {
+                val loadListener = object : RequestListener<Drawable> {
+                    override fun onLoadFailed(
+                        e: GlideException?,
+                        model: Any,
+                        target: Target<Drawable>,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        viewHolderListener.onLoadCompleted(model.toString())
+                        return false
+                    }
+
+                    override fun onResourceReady(
+                        resource: Drawable,
+                        model: Any,
+                        target: Target<Drawable>,
+                        dataSource: DataSource,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        viewHolderListener.onLoadCompleted(model.toString())
+                        return false
+                    }
+                }
+
                 requestManager
                     .load(article.urlToImage)
                     .listener(loadListener)
@@ -233,7 +233,7 @@ interface ViewHolderListener {
 
     /**
      * Handle specific item click.
-     * @param view ImageView, which holds [Character.photoUrl]
+     * @param view ImageView, which holds [Article.urlToImage]
      * @param article [Article], which card was clicked
      */
     fun onItemClicked(view: View, article: Article)

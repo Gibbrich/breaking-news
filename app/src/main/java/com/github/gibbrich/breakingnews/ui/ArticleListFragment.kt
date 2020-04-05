@@ -28,19 +28,19 @@ class ArticleListFragment : Fragment() {
 
     private val viewModel: ArticleListViewModel by viewModels()
     private var adapter: ArticlesAdapter? = null
-    private var characterTransitionUrl: String? = null
+    private var articleTransitionUrl: String? = null
 
     private val viewHolderListenerDelegate = object : ViewHolderListener {
         override fun onLoadCompleted(model: String) {
             // Call startPostponedEnterTransition only when the 'selected' image loading is completed.
-            if (characterTransitionUrl == model) {
+            if (articleTransitionUrl == model) {
                 startPostponedEnterTransition()
             }
         }
 
         override fun onItemClicked(view: View, article: Article) {
             // Update the position.
-            characterTransitionUrl = article.urlToImage
+            articleTransitionUrl = article.urlToImage
 
             // Exclude the clicked card from the exit transition (e.g. the card will disappear immediately
             // instead of fading out with the rest to prevent an overlapping animation of fade and move).
@@ -67,7 +67,7 @@ class ArticleListFragment : Fragment() {
         exitTransition =
             TransitionInflater.from(context).inflateTransition(R.transition.grid_exit_transition)
 
-        if (characterTransitionUrl != null) {
+        if (articleTransitionUrl != null) {
             postponeEnterTransition()
         }
 
