@@ -18,7 +18,6 @@ import dagger.Component
 )
 interface AppComponent {
     fun inject(entry: MainActivity)
-    fun inject(entry: ArticleListViewModel)
     fun inject(entry: ArticleListFragment)
     fun inject(entry: ArticleDetailFragment)
 }

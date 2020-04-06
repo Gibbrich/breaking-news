@@ -74,6 +74,11 @@ dependencies {
     kaptAndroidTest(Deps.data.roomCompiler)
 
     testImplementation(Deps.test.junit)
+    testImplementation(Deps.test.mockitoCore)
+    testImplementation(Deps.test.mockitoKotlin)
+    testImplementation(Deps.test.arch)
+    testImplementation(Deps.test.coroutinesTesting)
+    testImplementation(Deps.test.rules)
 
     androidTestImplementation(Deps.test.androidTestRunner)
     androidTestImplementation(Deps.test.androidTestRules)

@@ -26,7 +26,10 @@ class ArticleListFragment : Fragment() {
     @Inject
     lateinit var navigationManager: INavigationManager
 
-    private val viewModel: ArticleListViewModel by viewModels()
+    @Inject
+    lateinit var viewModelFactory: ArticleListViewModelFactory
+
+    private val viewModel: ArticleListViewModel by viewModels { viewModelFactory }
     private var adapter: ArticlesAdapter? = null
     private var articleTransitionUrl: String? = null
 
@@ -56,6 +59,12 @@ class ArticleListFragment : Fragment() {
 
     init {
         DI.appComponent.inject(this)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        viewModel.fetchArticlesPage()
     }
 
     override fun onCreateView(

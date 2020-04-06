@@ -12,7 +12,7 @@ interface ArticlesDao {
      * Fetch characters chunk. Used for pagination.
      */
     @Query("SELECT * FROM articles LIMIT :limit OFFSET :start")
-    suspend fun getCharacters(start: Int, limit: Int): List<DBArticle>
+    suspend fun getArticles(start: Int, limit: Int): List<DBArticle>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(characters: List<DBArticle>)
