@@ -55,7 +55,7 @@ class ArticleDetailFragment : Fragment() {
         sharedElementEnterTransition = transition
 
         // Avoid a postponeEnterTransition on orientation change, and postpone only of first creation.
-        if (savedInstanceState == null) {
+        if (savedInstanceState == null && article.urlToImage != null) {
             postponeEnterTransition()
         }
 

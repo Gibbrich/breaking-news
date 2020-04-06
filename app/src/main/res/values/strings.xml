@@ -1,10 +1,10 @@
 <resources>
-    <string name="app_name">BreakingNews</string>
+    <string name="app_name">Breaking News</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="retry">Retry</string>
-    <string name="fragment_article_detail_read_in_source"><u>Read in source</u></string>
+    <string name="fragment_article_detail_read_in_source">Learn more</string>
     <string name="fragment_article_detail_author">By %s, %s</string>
 </resources>
