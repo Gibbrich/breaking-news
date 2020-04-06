@@ -1,6 +1,7 @@
 package com.github.gibbrich.breakingnews.ui
 
 import androidx.lifecycle.*
+import com.github.gibbrich.breakingnews.adapter.ArticlesAdapter
 import com.github.gibbrich.breakingnews.core.model.Article
 import com.github.gibbrich.breakingnews.core.repository.ArticlesRepository
 import com.github.gibbrich.breakingnews.di.DI
@@ -16,16 +17,31 @@ class ArticleListViewModel(
     }
 
     private val articles = mutableListOf<Article>()
+
+    /**
+     * All articles, that were fetched from server.
+     */
     val articlesCached: List<Article> = articles
 
     private val articlesSource = MutableLiveData<List<Article>>(emptyList())
+
+    /**
+     * Articles, grouped by page. This is just delta to already displayed articles.
+     */
     val articlesPage: LiveData<List<Article>> = articlesSource
 
     private val stateSource = MutableLiveData<LoadingState?>()
+
+    /**
+     * Articles loading state. Used to display/hide footer in [ArticlesAdapter].
+     */
     val loadingState: LiveData<LoadingState?> = stateSource
 
     private var pageCount = 1
 
+    /**
+     * Fetch additional page of [Article] from server.
+     */
     fun fetchArticlesPage() {
         if (stateSource.value == LoadingState.LOADING) {
             return
