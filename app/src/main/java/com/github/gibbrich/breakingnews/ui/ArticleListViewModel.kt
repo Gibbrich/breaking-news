@@ -16,12 +16,7 @@ class ArticleListViewModel(
         private const val ARTICLES_IN_PAGE = 20
     }
 
-    private val articles = mutableListOf<Article>()
-
-    /**
-     * All articles, that were fetched from server.
-     */
-    val articlesCached: List<Article> = articles
+    val cachedArticles: List<Article> = articlesRepository.cachedArticles
 
     private val articlesSource = MutableLiveData<List<Article>>(emptyList())
 
@@ -62,8 +57,6 @@ class ArticleListViewModel(
 
                 emptyList<Article>()
             }
-
-            articles += result
 
             articlesSource.value = result
             articlesSource.value = emptyList()

@@ -15,10 +15,8 @@ import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
-import java.lang.IllegalStateException
 import java.lang.RuntimeException
 import java.util.*
-import javax.inject.Inject
 
 class ArticleListViewModelTest {
 
@@ -45,7 +43,7 @@ class ArticleListViewModelTest {
     @Test
     fun `viewModel charactersCached returns empty list on init`() = runBlocking {
         whenever(articlesRepository.getTopHeadLines(any(), any())).then { emptyList<Article>() }
-        assertTrue(viewModel.articlesCached.isNullOrEmpty())
+        assertTrue(viewModel.cachedArticles.isNullOrEmpty())
     }
 
     @Test
@@ -100,5 +98,44 @@ class ArticleListViewModelTest {
         viewModel.fetchArticlesPage()
 
         assertEquals(2, emitCount)
+    }
+
+    @Test
+    fun `viewModel articlesPage and cachedArticles start with empty list`() {
+        assertTrue(viewModel.articlesPage.value!!.isEmpty())
+        assertTrue(viewModel.cachedArticles.isEmpty())
+    }
+
+    @Test
+    fun `viewModel articlesPage emits fetched articles and then empty list`() = runBlocking {
+        val list = listOf(Article(
+            "Author",
+            "Title",
+            "Description",
+            "Url",
+            "UrlToImage",
+            Date(),
+            "Content",
+            "Source"
+        ))
+        whenever(articlesRepository.getTopHeadLines(any(), any())).then { list }
+
+        var emitCount = 0
+
+        val observer = Observer<List<Article>> {
+            emitCount++
+
+            when (emitCount) {
+                1 -> assertTrue(it.isEmpty())
+                2 -> assertEquals(list, it)
+                3 -> assertTrue(it.isEmpty())
+            }
+        }
+
+        viewModel.articlesPage.observeForever(observer)
+
+        viewModel.fetchArticlesPage()
+
+        assertEquals(3, emitCount)
     }
 }

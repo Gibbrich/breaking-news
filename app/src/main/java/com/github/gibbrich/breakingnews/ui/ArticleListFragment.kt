@@ -98,7 +98,7 @@ class ArticleListFragment : Fragment() {
             adapter = ArticlesAdapter(
                 viewHolderListenerDelegate,
                 Glide.with(this),
-                viewModel.articlesCached.toMutableList() // important to perform deep copy to avoid double data, as viewModel.articlesCached populate during work
+                viewModel.cachedArticles.toMutableList() // important to perform deep copy to avoid double data, as viewModel.cachedArticles populate during work
             )
         }
         fragment_article_list_recycler.adapter = adapter
